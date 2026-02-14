@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Sky🤍</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at top, #2c1a3a, #120818);
+            color: white;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            cursor: pointer; /* Подсказка пользователю, что на страницу можно нажать */
+        }
+
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 40px rgba(255, 100, 150, 0.2);
+            overflow-y: auto;
+            max-height: 85vh;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #text {
+            white-space: pre-wrap;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        .code-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .code {
+            font-size: 20px;
+            letter-spacing: 2px;
+            color: #ffd6e7;
+            user-select: all;
+        }
+
+        .copy-btn {
+            margin-left: 10px;
+            padding: 5px 12px;
+            border-radius: 8px;
+            border: none;
+            background: #ff7aa2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #ff94b8;
+            transform: scale(1.05);
+        }
+
+        .signature {
+            margin-top: 30px;
+            text-align: right;
+            font-style: italic;
+        }
+
+        pre {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #ffb3d1;
+        }
+
+        .floating {
+            position: absolute;
+            animation: float 7s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) scale(0.8); opacity: 0; }
+            15% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+    <div id="text"></div>
+
+    <div class="code-container">
+        <span class="code" id="valentineCode">RA8F428HA5BGG4KZVA</span>
+        <button class="copy-btn" onclick="copyCode()">Copy</button>
+    </div>
+
+    <div class="signature">
+        Yours Nick
+    </div>
+
+<pre>
+     ／ ＞　 フ 
+     | 　_　 _| 
+    ／`ミ _x 彡 
+   /　　　 　 | 
+  /　 ヽ　　 ﾉ 
+／￣||　|　|
+| (￣ヽ__)_)
+＼二つ
+</pre>
+</div>
+
+<script>
+const message = `Happy Valentine's Day, my love 🤍
+
+Today, half the world celebrates love with chocolate, flowers, and clichés. But we're different. We celebrate with nighttime poems, shared victories, time spent together, tears, and genuine love. We celebrate 72 days of choosing each other.
+
+I can't hand you a bouquet with a box of chocolates right now, holding you tight. But I have something better:
+
+I have memories of everything we've been through together.
+I have every single "I love you" from you.
+I have your voice in my headphones, your face in my dreams.
+
+You're not "too much".
+You're not "clingy".
+You're not "boring".
+You're my angel. My kitten. My future wife.
+
+You're the girl I wait for every day and long to hold.
+
+We are the home we're building - laying every brick into our future.
+Just a little longer, and I'll lift you into my arms, spin you around, and we'll fall onto the bed and cuddle until we fall asleep. 
+Soon I'll figure out international payment services, and you'll receive gifts from me, even when I'm this far away.
+
+Now accept this humble little gift from me:
+
+And today, on this silly commercial holiday, I want you to know:
+I don't love you because it's Valentine's Day.
+
+I love you because you're - You.
+Brave, beautiful, smart, caring, loving, jealous, worried, wonderful You.
+
+Happy Valentine's Day, my love.
+You already have the most important thing:
+
+Me.
+Forever.
+Yours.`;
+
+let i = 0;
+function typeWriter() {
+    if (i < message.length) {
+        document.getElementById("text").innerHTML += message.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+    }
+}
+
+typeWriter();
+
+const audio = document.getElementById('bgMusic');
+
+function playMusic() {
+    audio.play().catch(err => console.log("Waiting for interaction..."));
+}
+
+document.body.addEventListener('click', playMusic, { once: true });
+
+function copyCode() {
+    playMusic();
+    const code = document.getElementById("valentineCode").innerText;
+    const textarea = document.createElement("textarea");
+    textarea.value = code;
+    document.body.appendChild(textarea);
+    textarea.select();
+    
+    try {
+        document.execCommand('copy');
+        alert("Copied to clipboard! 💖");
+    } catch (err) {
+        alert("Failed to copy. Please copy manually.");
+    }
+    document.body.removeChild(textarea);
+}
+
+function createFloating() {
+    const element = document.createElement("div");
+    element.classList.add("floating");
+    const items = ["❤️", "🌹", "😻", "✨"];
+    element.innerHTML = items[Math.floor(Math.random() * items.length)];
+    element.style.left = Math.random() * 100 + "vw";
+    element.style.fontSize = (Math.random() * 20 + 20) + "px";
+    document.body.appendChild(element);
+    setTimeout(() => { element.remove(); }, 7000);
+}
+setInterval(createFloating, 450);
+
+</script>
+</body>
+</html>
